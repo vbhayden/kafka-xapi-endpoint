@@ -1,0 +1,102 @@
+version: '3'
+services:
+  
+  nginx:
+    restart: always
+    build: 
+      context: nginx
+      args:
+        PROXY_LRS_ROOT: "${PROXY_LRS_ROOT}"
+        PROXY_HOST_NAME: "${PROXY_HOST_NAME}"
+        PROXY_PORT: "${PROXY_PORT}"
+    container_name: docker_nginx
+    volumes:
+      - ./nginx/letsencrypt:/usr/share/nginx/html
+      - ./certbot/etc:/usr/share/keys
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - public
+
+  # Certbot for SSL automation
+  #
+  certbot:
+    container_name: 'docker_certbot'
+    image: certbot/certbot
+    volumes:
+      - ./keys:/var/lib/letsencrypt
+      - ./nginx/letsencrypt:/data/letsencrypt
+      - ./certbot/etc:/etc/letsencrypt
+      - ./certbot/log:/var/log/letsencrypt
+    depends_on:
+      - nginx
+    networks:
+      - public
+
+  xapi-1:
+    restart: always
+    build:
+      context: app
+    container_name: xapi-1
+    environment:
+      - PORT
+      - BASIC_USERNAME
+      - BASIC_PASSWORD
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_SASL_USER
+      - KAFKA_SASL_PASS
+      - KEYCLOAK_REALM
+      - KEYCLOAK_ENDPOINT
+      - KEYCLOAK_CLIENT
+    networks:
+      - public
+
+  xapi-2:
+    restart: always
+    build:
+      context: app
+    container_name: xapi-2
+    environment:
+      - PORT
+      - BASIC_USERNAME
+      - BASIC_PASSWORD
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_SASL_USER
+      - KAFKA_SASL_PASS
+      - KEYCLOAK_REALM
+      - KEYCLOAK_ENDPOINT
+      - KEYCLOAK_CLIENT
+    networks:
+      - public
+    
+  xapi-3:
+    restart: always
+    build:
+      context: app
+    container_name: xapi-3
+    environment:
+      - PORT
+      - BASIC_USERNAME
+      - BASIC_PASSWORD
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_BROKER
+      - KAFKA_XAPI_TOPIC
+      - KAFKA_SASL_USER
+      - KAFKA_SASL_PASS
+      - KEYCLOAK_REALM
+      - KEYCLOAK_ENDPOINT
+      - KEYCLOAK_CLIENT
+    networks:
+      - public
+
+networks:
+  public: 
+    driver: bridge
