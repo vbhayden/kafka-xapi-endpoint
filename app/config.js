@@ -21,6 +21,8 @@ module.exports = {
 
     },
 
+    useKeycloak: !!(process.env.USE_KEYCLOAK || 0),
+    
     keycloak: {
         "realm": (process.env.KEYCLOAK_REALM || "tla"),
         "auth-server-url": (process.env.KEYCLOAK_ENDPOINT || "https://tla-dev-auth.usalearning.net/auth"),

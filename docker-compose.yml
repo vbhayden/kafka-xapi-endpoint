@@ -6,9 +6,8 @@ services:
     build: 
       context: nginx
       args:
-        PROXY_LRS_ROOT: "${PROXY_LRS_ROOT}"
-        PROXY_HOST_NAME: "${PROXY_HOST_NAME}"
-        PROXY_PORT: "${PROXY_PORT}"
+        - HOSTNAME
+        - APP_PORT="${PORT}"
     container_name: docker_nginx
     volumes:
       - ./nginx/letsencrypt:/usr/share/nginx/html
@@ -45,10 +44,9 @@ services:
       - BASIC_PASSWORD
       - KAFKA_BROKER
       - KAFKA_XAPI_TOPIC
-      - KAFKA_BROKER
-      - KAFKA_XAPI_TOPIC
       - KAFKA_SASL_USER
       - KAFKA_SASL_PASS
+      - USE_KEYCLOAK
       - KEYCLOAK_REALM
       - KEYCLOAK_ENDPOINT
       - KEYCLOAK_CLIENT
@@ -66,10 +64,9 @@ services:
       - BASIC_PASSWORD
       - KAFKA_BROKER
       - KAFKA_XAPI_TOPIC
-      - KAFKA_BROKER
-      - KAFKA_XAPI_TOPIC
       - KAFKA_SASL_USER
       - KAFKA_SASL_PASS
+      - USE_KEYCLOAK
       - KEYCLOAK_REALM
       - KEYCLOAK_ENDPOINT
       - KEYCLOAK_CLIENT
@@ -87,10 +84,9 @@ services:
       - BASIC_PASSWORD
       - KAFKA_BROKER
       - KAFKA_XAPI_TOPIC
-      - KAFKA_BROKER
-      - KAFKA_XAPI_TOPIC
       - KAFKA_SASL_USER
       - KAFKA_SASL_PASS
+      - USE_KEYCLOAK
       - KEYCLOAK_REALM
       - KEYCLOAK_ENDPOINT
       - KEYCLOAK_CLIENT

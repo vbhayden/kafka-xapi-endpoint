@@ -24,7 +24,7 @@ const auth = {
      * @returns 
      */
     checkHeader: (request, header, expectedValues) => expectedValues.includes(request.headers[header]),
-    
+
     /**
      * Check that the request has valid LRS headers.
      * @param {*} request Request object, just needs to have a .headers map.
@@ -42,7 +42,7 @@ const auth = {
      * Middleware for handling basic auth for the LRS.
      */
     basicAuth: (req, res, next) => {
-        
+
         let validHeaders = auth.checkXAPIHeaders(req);
         if (validHeaders)
             next()
@@ -53,7 +53,10 @@ const auth = {
     /**
      * Middleware for handling auth with Keycloak.
      */
-    keycloakAuth: (req, res, next) => keycloakAdapter.protect()(req, res, next)
+    keycloakAuth: (req, res, next) =>
+        config.useKeycloak
+            ? keycloakAdapter.protect()(req, res, next)
+            : next()
 }
 
 module.exports = auth;
