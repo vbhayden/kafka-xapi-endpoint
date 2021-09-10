@@ -14,7 +14,7 @@ const auth = require("./lib/auth");
 
 async function main() {
 
-    const APP_PORT = (process.env.APP_PORT || 3000);
+    const APP_PORT = 3000;
 
     const app = express();
     const server = http.createServer(app);
