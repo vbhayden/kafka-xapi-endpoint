@@ -1,5 +1,6 @@
 
 const config = require("../config");
+const btoa = require("btoa");
 const keycloakAdapter = require("simple-keycloak-adapter");
 
 const base64Credentials = btoa(`${config.auth.username}:${config.auth.password}`);
