@@ -7,7 +7,6 @@ services:
       context: nginx
       args:
         - HOSTNAME
-        - APP_PORT="${PORT}"
     container_name: docker_nginx
     volumes:
       - ./nginx/letsencrypt:/usr/share/nginx/html
@@ -39,7 +38,6 @@ services:
       context: app
     container_name: xapi-1
     environment:
-      - PORT
       - BASIC_USERNAME
       - BASIC_PASSWORD
       - KAFKA_BROKER
@@ -59,7 +57,6 @@ services:
       context: app
     container_name: xapi-2
     environment:
-      - PORT
       - BASIC_USERNAME
       - BASIC_PASSWORD
       - KAFKA_BROKER
@@ -79,7 +76,6 @@ services:
       context: app
     container_name: xapi-3
     environment:
-      - PORT
       - BASIC_USERNAME
       - BASIC_PASSWORD
       - KAFKA_BROKER

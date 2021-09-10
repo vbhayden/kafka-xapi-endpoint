@@ -1,8 +1,6 @@
 FROM nginx:alpine
 
-ARG PROXY_LRS_ROOT
-ARG PROXY_HOST_NAME
-ARG PROXY_PORT
+ARG HOSTNAME
 
 # Move our configuration into place
 #
@@ -23,6 +21,5 @@ COPY lrs-static /opt/lrs/lrs-static
 #
 RUN cat /etc/nginx/nginx.conf \
 	| envsubst '$HOSTNAME' \
-	| envsubst '$PROXY_PORT' \
 	| tee /tmp/nginx.conf
 RUN mv /tmp/nginx.conf /etc/nginx/nginx.conf
