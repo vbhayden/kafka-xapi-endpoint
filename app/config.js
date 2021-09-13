@@ -21,7 +21,7 @@ module.exports = {
 
     },
 
-    useKeycloak: !!(process.env.USE_KEYCLOAK || 0),
+    useKeycloak: process.env.USE_KEYCLOAK == true,
     
     keycloak: {
         "realm": (process.env.KEYCLOAK_REALM || "tla"),
