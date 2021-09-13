@@ -17,7 +17,7 @@ const auth = {
      */
     init: (app) => {
         if (config.useKeycloak)
-            app.use(keycloakAdapter.init(config.keycloak, config.root + "/logout")),
+            app.use(keycloakAdapter.init(config.keycloak, config.root + "/logout"));
     },
 
     /**
