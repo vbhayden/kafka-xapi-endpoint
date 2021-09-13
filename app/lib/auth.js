@@ -15,7 +15,10 @@ const auth = {
      * @param {Express.Application} app 
      * @returns 
      */
-    init: (app) => app.use(keycloakAdapter.init(config.keycloak, config.root + "/logout")),
+    init: (app) => {
+        if (config.useKeycloak)
+            app.use(keycloakAdapter.init(config.keycloak, config.root + "/logout")),
+    },
 
     /**
      * Checks a single header against a set of possible values.
