@@ -36,6 +36,8 @@ async function main() {
             next();
     });
 
+    auth.init(app);
+
     app.get(config.root, auth.keycloakAuth, function (req, res, next) {
         res.render("index.ejs", {
             root: config.root
